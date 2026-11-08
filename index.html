@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GTU Safety Exam – Made by Komsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f6f7fb;--sheet:#fff;--ink:#14213d;--mute:#5a6785;--navy:#1b3f8b;--navy-ink:#fff;--rule:#cdd5e6;--ok:#1e7a4c;--okbg:#e3f4ea;--bad:#b3261e;--badbg:#fbe7e5;--gold:#b8892b;
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#0e1424;--sheet:#161e33;--ink:#e8ecf7;--mute:#9aa6c4;--navy:#7ea2ff;--navy-ink:#0e1424;--rule:#2a3556;--ok:#5ad196;--okbg:#14352a;--bad:#ff8f86;--badbg:#3b1a1a;--gold:#e0b85a;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0e1424;--sheet:#161e33;--ink:#e8ecf7;--mute:#9aa6c4;--navy:#7ea2ff;--navy-ink:#0e1424;--rule:#2a3556;--ok:#5ad196;--okbg:#14352a;--bad:#ff8f86;--badbg:#3b1a1a;--gold:#e0b85a;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "Public Sans",system-ui,"Segoe UI",sans-serif}
+.sheet{max-width:760px;margin:0 auto;background:var(--sheet);border-left:1px solid var(--rule);border-right:1px solid var(--rule);min-height:100vh}
+header.cover{padding:36px 28px 22px;text-align:center;border-bottom:4px double var(--navy)}
+.cover .ka{font:600 15px "Source Serif 4",Georgia,serif;color:var(--navy);margin:0}
+.cover h1{font:700 28px/1.2 "Source Serif 4",Georgia,serif;margin:6px 0 4px}
+.cover p{margin:2px 0;color:var(--mute)}
+.cover .meta{margin-top:14px;font-weight:600;color:var(--ink)}
+.fields{display:grid;grid-template-columns:2fr 1.5fr 1fr;gap:12px;padding:18px 28px;border-bottom:1px solid var(--rule)}
+.fields label{display:block;font-size:13px;color:var(--mute)}
+.fields input{width:100%;margin-top:3px;padding:8px 6px;border:0;border-bottom:1.5px solid var(--ink);background:transparent;color:var(--ink);font:inherit}
+.fields input:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+.rules{margin:0;padding:14px 28px 14px 48px;font-size:14px;color:var(--mute);border-bottom:1px solid var(--rule)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 28px;background:var(--navy);color:var(--navy-ink);font-weight:600}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--navy);z-index:30}
+.bar button{background:transparent;color:inherit;border:1.5px solid currentColor;border-radius:4px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}
+.bar button:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+#clock{font-variant-numeric:tabular-nums;font-size:18px}
+#clock.low{color:#ffd27a}
+fieldset.q{border:0;margin:0;padding:22px 28px;border-bottom:1px solid var(--rule)}
+legend{float:left;width:100%;padding:0;font:600 18px/1.4 "Source Serif 4",Georgia,serif}
+legend .n{color:var(--navy);margin-right:6px}
+legend small{display:block;font:400 12px "Public Sans",sans-serif;color:var(--mute);margin-top:2px}
+.opts{clear:both;display:grid;gap:8px;padding-top:12px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1.5px solid var(--rule);border-radius:6px;cursor:pointer}
+.opt:hover{border-color:var(--navy)}
+.opt input{margin-top:5px;accent-color:var(--navy)}
+.opt b{min-width:18px;color:var(--navy)}
+.opt:has(input:checked){border-color:var(--navy);background:color-mix(in srgb,var(--navy) 10%,transparent)}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.why{display:none;margin:10px 0 0;padding:8px 12px;border-left:4px solid var(--ok);background:var(--okbg);font-size:14px}
+.show .why{display:block}
+.why.bad{border-left-color:var(--bad);background:var(--badbg)}
+.why.miss{border-left-color:var(--gold);background:var(--paper)}
+.why span{display:block}.why span+span{margin-top:6px}
+.actions{padding:26px 28px 10px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{background:var(--navy);color:var(--navy-ink);border:0;border-radius:5px;padding:12px 22px;font:600 16px "Public Sans",sans-serif;cursor:pointer}
+.btn.alt{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+#result{display:none;margin:18px 28px;padding:20px;border:2px solid var(--navy);border-radius:6px;text-align:center}
+#result .score{font:700 44px "Source Serif 4",Georgia,serif;color:var(--navy);margin:0}
+#result p{margin:4px 0}
+footer{padding:20px 28px 40px;font-size:13px;color:var(--mute);text-align:center}
+@media (max-width:560px){.fields{grid-template-columns:1fr}.cover h1{font-size:24px}.bar,.fields,fieldset.q,.actions,header.cover{padding-left:16px;padding-right:16px}.rules{padding-left:36px}#result{margin:18px 16px}}
+@media print{.bar,.actions,body::before{display:none}}
+</style>
+</head>
+<body>
+<div class="sheet" id="sheet">
+<header class="cover">
+<p class="ka">საქართველოს ტექნიკური უნივერსიტეტი</p>
+<h1>Georgian Technical University</h1>
+<p>Occupational Health &amp; Safety · Final Exam, Part A</p>
+<p class="meta">Multiple Choice Test · 20 questions · 40 minutes · Tbilisi 2026</p>
+<p><strong>Made by Komsa</strong></p>
+</header>
+<div class="fields">
+<label>Student name<input id="nm" autocomplete="name"></label>
+<label>Faculty<input id="fc"></label>
+<label>Group #<input id="gr"></label>
+</div>
+<ol class="rules">
+<li>Choose one answer per question. Each correct answer earns 1 point.</li>
+<li>Unanswered questions score 0. There is no penalty for wrong answers.</li>
+<li>The test submits itself when the timer reaches 0:00.</li>
+</ol>
+<div class="bar"><span id="prog">Answered 0 / 20</span><span id="clock">40:00</span><button id="keybtn" type="button" aria-pressed="false">Show answer key</button></div>
+<form id="exam" onsubmit="return false"><div id="qs"></div></form>
+<div class="actions">
+<button class="btn" id="submit" type="button">Submit exam</button>
+<button class="btn alt" id="reset" type="button">Start over</button>
+</div>
+<div id="result" role="status" aria-live="polite"></div>
+<footer><strong>Made by Komsa</strong><br>Questions are based on the course annexes: definitions, incident chain, hierarchy of controls, risk matrix, control of work, standards and signage.</footer>
+</div>
+<script>
+var Q=[
+{t:"Annex 0 · Definitions",q:"Risk is commonly calculated as:",o:["Hazard + Exposure","Probability × Severity","Severity ÷ Likelihood","Hazard − Controls"],a:1,w:"Annex 0 defines risk as Probability × Severity (or Hazard × Exposure): how likely harm is, multiplied by how bad it would be.",x:["Hazard and exposure are multiplied, not added.","","Dividing severity by likelihood would make risk fall as harm becomes likelier, which is backwards.","Controls reduce risk but do not define it."]},
+{t:"Annex 0 · Definitions",q:"Which statement best describes security, as opposed to safety?",o:["Freedom from illness","Absence of environmental damage","Freedom from threats such as crime or attacks","Compliance with PPE rules"],a:2,w:"Security is the state of being free from danger or threat, such as crime or attacks by others.",x:["Freedom from illness is the definition of health.","Environmental damage relates to the environment definition, not security.","","PPE rules are a safety control, not the meaning of security."]},
+{t:"Annex 1 · Hazard categories",q:"Slipping and tripping belong to which physical hazard type?",o:["Mechanical","Thermal","Electrical","Gravitational"],a:3,w:"Gravitational hazards cover falling, dropped objects, tripping and slipping.",x:["Mechanical covers motion, breaking and being hit.","Thermal covers hot or cold surfaces.","Electrical covers shock, firing, explosion and radiation.",""]},
+{t:"Annex 2 · Incident chain",q:"What is the correct order of the incident progression chain?",o:["Fault → Error → Failure → Defect → Accident → Incident","Error → Fault → Defect → Failure → Incident → Accident","Error → Defect → Fault → Incident → Failure → Accident","Defect → Error → Fault → Failure → Accident → Incident"],a:1,w:"The chain starts with a human error, which creates a fault, then a defect, a failure, an incident and finally an accident (harm).",x:["It starts with Fault instead of Error and puts Accident before Incident.","","Fault must come before Defect, and Failure before Incident.","It starts with Defect instead of Error and ends with Incident."]},
+{t:"Annex 2 · Incident chain",q:"A worker slips but is not hurt (a near-miss). This is a(n):",o:["Fault","Defect","Incident","Accident"],a:2,w:"An incident is an unplanned event and may be a near-miss. Annex 2 lists a worker slip (near-miss) as an incident.",x:["A fault is an abnormal condition in a system, not an event.","A defect is an imperfection in a product or code.","","An accident requires harm to people, environment or property. Nobody was hurt."]},
+{t:"Annex 3 · Hierarchy of controls",q:"Which order runs from MOST to LEAST effective control?",o:["PPE, Administrative, Engineering, Substitution, Elimination","Elimination, Engineering, Substitution, PPE, Administrative","Elimination, Substitution, Engineering, Administrative, PPE","Substitution, Elimination, Administrative, Engineering, PPE"],a:2,w:"The hierarchy runs Elimination → Substitution → Engineering → Administrative → PPE, from removing the hazard to only protecting the person.",x:["This is the reverse order, with the weakest control first.","Substitution ranks above Engineering, and PPE is the last resort.","","Elimination ranks above Substitution, and Engineering above Administrative."]},
+{t:"Annex 3 · Hierarchy of controls",q:"In which phase is elimination applied?",o:["Operation","Design","Maintenance","Construction only"],a:1,w:"Elimination removes the hazard completely, and that is only practical at the design phase, before it is built in.",x:["Operation relies on administrative controls and PPE, which are lower in the hierarchy.","","Maintenance applies engineering controls and isolation, not removal by design.","Construction can use substitution, but elimination is best done earlier, in design."]},
+{t:"Annex 4 · Risk assessment",q:"Likelihood 4 × severity 4 = 16. Which risk level is this?",o:["Moderate","High","Extreme","Low"],a:2,w:"On the Annex 4 key, 14 or more is Extreme, so 16 needs the strongest and fastest action.",x:["Moderate is 4–7, far below 16.","High is 8–13, and 16 is above that.","","Low is 1–3, far below 16."]},
+{t:"Annex 4 · Risk assessment",q:"Which score range is classed as “High”?",o:["1–3","4–7","8–13","14 or more"],a:2,w:"The Annex 4 key sets High at 8–13.",x:["1–3 is Low.","4–7 is Moderate.","","14 or more is Extreme."]},
+{t:"Annex 5 · Control of work",q:"Which work is high potential risk and needs a permit to work?",o:["Workshop activities","Civil work","Routine non-permit work","Naked flame work"],a:3,w:"High-risk work includes naked flame, radiation, explosion areas, high pressure and deep diving, so a permit to work is required.",x:["Workshop activities are low-potential risk work.","Civil work is low-potential risk work.","Routine work is non-permit work by definition.",""]},
+{t:"Annex 5 · Control of work",q:"Which of these is NOT listed as a type of energy isolation?",o:["Electrical","Hydraulic","Mechanical","Thermal"],a:3,w:"Annex 5 lists electrical, process, mechanical and hydraulic isolation. Thermal is not one of them.",x:["Electrical isolation is listed, so it is not the answer.","Hydraulic isolation is listed, so it is not the answer.","Mechanical isolation is listed, so it is not the answer.",""]},
+{t:"Annex 6 · Responsible persons",q:"In the responsible-person hierarchy, who sits at the top?",o:["Discipline technicians","Managers","Skilled labourers","Administrative specialists"],a:1,w:"Managers control all the levels below them. Unskilled labourers are at the bottom.",x:["Technicians carry out the technology process, below engineers and managers.","","Skilled labourers help the technicians and sit near the bottom.","Administrative specialists support the process but report to managers."]},
+{t:"Annex 7 · Standards",q:"Which organization develops ISO 45001 (occupational health and safety)?",o:["IEC","ILO","ISO","WHO"],a:2,w:"ISO, the International Organization for Standardization, develops voluntary standards such as ISO 9001 and ISO 45001.",x:["IEC covers electrical and electronic standards.","ILO sets international labour standards, not ISO standards.","","WHO focuses on public and occupational health, not on publishing ISO standards."]},
+{t:"Annex 7 · Standards",q:"Which regulatory bodies enforce workplace safety in the UK and the US, respectively?",o:["OSHA and HSE","HSE and OSHA","MHLW and HSE","DGFASLI and OSHA"],a:1,w:"The UK regulator is the HSE (Health & Safety Executive) and the US regulator is OSHA.",x:["This reverses them: OSHA is the US body and HSE is the UK body.","","MHLW is Japan’s Ministry of Health, Labour and Welfare, not the UK regulator.","DGFASLI is India’s directorate, not the UK’s."]},
+{t:"Annex 8 · Safety signage",q:"Under ISO 7010, a warning sign is:",o:["Red circle","Green rectangle","Blue circle","Yellow triangle"],a:3,w:"ISO 7010 uses yellow for warnings and triangles for the warning shape. Prohibitions are red circles.",x:["Red circles are prohibition signs.","Green is the colour of emergency escape signs.","Circles are used for prohibition and mandatory signs, not warnings.",""]},
+{t:"Annex 8 · Safety signage",q:"Which colour is used for emergency escape signs?",o:["Red","Yellow","Green","Black"],a:2,w:"Green marks exits, evacuation routes and assembly points.",x:["Red is used for prohibitions.","Yellow is used for warnings.","","Black is used for symbols on signs, not as the escape-sign colour."]},
+{t:"Annex 9 · Emergency response",q:"In the Emergency Response Plan, which of these is a man-made incident?",o:["Earthquake","Tsunami","Chemical spill","Avalanche"],a:2,w:"Annex 9 lists chemical spills with transport crashes and workplace violence as man-made incidents.",x:["An earthquake is a natural disaster.","A tsunami is a natural disaster.","","An avalanche is a natural disaster."]},
+{t:"Annex 3 · Hierarchy of controls",q:"Fitting a fixed guard so people cannot reach moving machine parts is which level of control?",o:["Elimination","Substitution","Engineering controls","PPE"],a:2,w:"Engineering controls isolate people from the hazard. The machine remains, but the guard physically separates people from it.",x:["Elimination would remove the machine hazard entirely.","Substitution would swap the hazard for a less hazardous one. A guard replaces nothing.","","PPE only protects the wearer and does not stop access to the hazard."]},
+{t:"Annex 4 · Risk assessment",q:"Likelihood 2 × severity 3 = 6. Which risk level is this?",o:["Low","Moderate","High","Extreme"],a:1,w:"A score of 6 falls in the 4–7 band, which is Moderate.",x:["Low is only 1–3.","","High starts at 8.","Extreme starts at 14."]},
+{t:"Annex 7 · Standards",q:"Which international organization publishes standards for electrical and electronic technologies?",o:["ILO","IEC","IMO","ICAO"],a:1,w:"The IEC, the International Electrotechnical Commission, covers all electrical, electronic and related technologies.",x:["The ILO sets labour standards.","","The IMO controls safety in global shipping.","ICAO sets aviation standards."]}
+];
+var L="ABCD",TOTAL=40*60,left=TOTAL,timer=null,done=false,keyOn=false;
+var $=function(id){return document.getElementById(id)};
+function build(){
+  var h="";
+  Q.forEach(function(x,i){
+    h+='<fieldset class="q" id="q'+i+'"><legend><span class="n">'+(i+1)+'.</span>'+x.q+'<small>'+x.t+'</small></legend><div class="opts">';
+    x.o.forEach(function(o,j){h+='<label class="opt" id="o'+i+'_'+j+'"><input type="radio" name="q'+i+'" value="'+j+'"><b>'+L[j]+')</b><span>'+o+'</span></label>'});
+    h+='</div><p class="why" id="w'+i+'"></p></fieldset>';
+  });
+  $("qs").innerHTML=h;
+}
+function picked(i){var r=document.querySelector('input[name="q'+i+'"]:checked');return r?+r.value:-1}
+function count(){var n=0;Q.forEach(function(_,i){if(picked(i)>=0)n++});$("prog").textContent="Answered "+n+" / "+Q.length;return n}
+function fmt(s){var m=Math.floor(s/60),r=s%60;return m+":"+(r<10?"0":"")+r}
+function tick(){left--;$("clock").textContent=fmt(Math.max(left,0));$("clock").className=left<=300?"low":"";if(left<=0)finish()}
+function mark(){
+  Q.forEach(function(x,i){
+    var p=picked(i);
+    for(var j=0;j<4;j++){var el=$("o"+i+"_"+j);el.classList.remove("right","wrong");
+      if(j===x.a&&(done||keyOn))el.classList.add("right");
+      if(done&&j===p&&p!==x.a)el.classList.add("wrong");}
+  });
+  Q.forEach(function(x,i){
+    var p=picked(i),w=$("w"+i),c="why",h="";
+    var key='<span><strong>Correct answer: '+L[x.a]+') '+x.o[x.a]+'.</strong> '+x.w+'</span>';
+    if(done){
+      if(p===x.a){h='<span><strong>✓ Correct.</strong> You chose '+L[p]+') '+x.o[p]+'.</span><span>'+x.w+'</span>'}
+      else if(p<0){c+=" miss";h='<span><strong>Not answered.</strong></span>'+key}
+      else{c+=" bad";h='<span><strong>✗ Wrong.</strong> You chose '+L[p]+') '+x.o[p]+'. '+x.x[p]+'</span>'+key}
+    }else{h=key}
+    w.className=c;w.innerHTML=h;
+  });
+  $("sheet").classList.toggle("show",done||keyOn);
+}
+function finish(){
+  if(done)return;done=true;clearInterval(timer);
+  var s=0;Q.forEach(function(x,i){if(picked(i)===x.a)s++});
+  var pct=Math.round(s/Q.length*100),n=count();
+  var g=pct>=91?"Excellent":pct>=71?"Good":pct>=51?"Pass":"Needs more study";
+  var nm=$("nm").value.trim();
+  $("result").style.display="block";
+  $("result").innerHTML='<p class="score">'+s+' / '+Q.length+'</p><p><strong>'+pct+'%</strong> · '+g+'</p><p>'+(nm?nm+' · ':'')+n+' answered, '+(Q.length-n)+' left blank. Review each answer below.</p>';
+  document.querySelectorAll("#exam input").forEach(function(i){i.disabled=true});
+  $("submit").disabled=true;mark();
+  $("result").scrollIntoView({behavior:"smooth",block:"center"});
+}
+function start(){
+  done=false;keyOn=false;left=TOTAL;clearInterval(timer);
+  build();$("result").style.display="none";$("submit").disabled=false;
+  $("keybtn").textContent="Show answer key";$("keybtn").setAttribute("aria-pressed","false");
+  $("clock").textContent=fmt(TOTAL);$("clock").className="";count();mark();
+  timer=setInterval(tick,1000);window.scrollTo(0,0);
+}
+$("exam").addEventListener("change",count);
+$("submit").addEventListener("click",function(){
+  var n=count();
+  if(n<Q.length&&!confirm("You have "+(Q.length-n)+" unanswered question(s). Submit anyway?"))return;
+  finish();
+});
+$("reset").addEventListener("click",function(){if(!done&&!confirm("Discard your answers and restart the timer?"))return;start()});
+$("keybtn").addEventListener("click",function(){
+  keyOn=!keyOn;this.textContent=keyOn?"Hide answer key":"Show answer key";this.setAttribute("aria-pressed",keyOn);mark();
+});
+start();
+</script>
+</body>
+</html>
